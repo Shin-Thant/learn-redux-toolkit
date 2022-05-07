@@ -1,0 +1,59 @@
+.todo {
+    --normal-clr: rgb(49, 49, 49);
+    --active-clr: #ff4747;
+
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 13px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.2rem;
+    border-radius: 10px;
+    background-color: white;
+    transition: all 100ms ease;
+    color: rgb(92, 135, 255);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.todo:hover {
+    box-shadow: 0 8px 13px rgba(0, 0, 0, 0.1);
+}
+
+.action-container {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.onFireAction {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid var(--normal-clr);
+    padding: 0.3rem;
+    border-radius: 50%;
+}
+
+.icons {
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #181818;
+}
+
+.notOnFire {
+    font-size: 1rem;
+    color: var(--normal-clr);
+}
+.notOnFire.onFireAction {
+    border-color: var(--normal-clr);
+}
+
+.onFire {
+    font-size: 1rem;
+    color: var(--active-clr) !important;
+}
+.onFire.onFireAction {
+    border-color: var(--active-clr);
+}

@@ -1,0 +1,21 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+.navbar-container > h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: rgb(92, 135, 255);
+    text-transform: uppercase;
+}
+
+.count {
+    border: 2px solid rgb(92, 135, 255);
+    padding: 0.3rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+}
