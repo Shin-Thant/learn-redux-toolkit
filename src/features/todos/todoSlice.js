@@ -22,7 +22,10 @@ export const getAllTodos = createAsyncThunk(
 );
 
 const todoAdapter = createEntityAdapter({
-    sortComparer: (a, b) => a.id.toString().localeCompare(b.id.toString()),
+    sortComparer: (a, b) => {
+        console.log(a, b);
+        return a?.id.toString().localeCompare(b?.id.toString());
+    },
 });
 
 const initialState = todoAdapter.getInitialState({
@@ -34,15 +37,15 @@ export const todoSlice = createSlice({
     initialState,
     reducers: {
         addNewTodo: (state, action) => {
-            let newTodo = {
+            const newTodo = {
+                userId: Math.floor(Math.random() * 20) + 1,
                 id: state.ids.length + 1,
                 title: action.payload,
                 completed: false,
-                onFire: 0,
             };
 
             // state.todos = [...state.todos, newTodo];
-            todoAdapter.addOne(state, newTodo);
+            todoAdapter.addOne(state, { ...newTodo });
         },
         removeTodo: (state, action) => {
             // state.todos = state.todos.filter(
@@ -61,24 +64,24 @@ export const todoSlice = createSlice({
             //           }
             //         : todo
             // );
-
-            const existedPost = state.entities[action.payload];
-            if (existedPost) existedPost.onFire += 1;
+            // const existedPost = state.entities[action.payload];
+            // if (existedPost) existedPost.onFire += 1;
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase(getAllTodos.pending, (state, action) => {
                 state.loading = true;
-                state.todos = [];
+                // state.todos = [];
             })
             .addCase(getAllTodos.fulfilled, (state, action) => {
                 state.loading = false;
-                state.todos = [...action.payload];
+                // state.todos = [...action.payload];
+                todoAdapter.upsertMany(state, action.payload);
             })
             .addCase(getAllTodos.rejected, (state, action) => {
                 state.loading = false;
-                state.todos = [];
+                // state.todos = [];
                 state.error = action.payload;
             });
     },
@@ -88,6 +91,7 @@ export const {
     selectAll: selectAllTodos,
     selectIds: selectTodoIds,
     selectById: selectTodoById,
+    selectEntities,
 } = todoAdapter.getSelectors((state) => state.todos);
 
 export const { addNewTodo, removeTodo, addFire } = todoSlice.actions;

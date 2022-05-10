@@ -8,11 +8,15 @@ import {
     addNewTodo,
     getAllTodos,
     selectAllTodos,
+    selectEntities,
     selectTodoIds,
 } from "./features/todos/todoSlice";
 
 function App() {
     const todoIds = useSelector(selectTodoIds);
+
+    // const entities = useSelector(selectEntities);
+    // console.log(entities);
 
     const [c, setC] = useState(0);
 
@@ -40,14 +44,14 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getAllTodos(""));
+        dispatch(getAllTodos());
     }, []);
 
     const addTodo = (e) => {
         // e.preventDefault();
         if (input.current?.value?.length) {
-            setNewTodo("");
             dispatch(addNewTodo(newTodo));
+            setNewTodo("");
             input.current.focus();
         }
     };
